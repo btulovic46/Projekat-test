@@ -10,6 +10,34 @@ namespace DataAccessLayer
 {
      public class GalleryRepository
     {
+        public List<Gallery> GetAllGalleries()
+        {
+            List<Gallery> results = new List<Gallery>();
+            
+            using (SqlConnection sqlConnection = new SqlConnection(Constants.connectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "SELECT * FROM Gallery";
+
+                sqlConnection.Open();
+
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Gallery g = new Gallery();
+                    g.Id = sqlDataReader.GetInt32(0);
+                    g.Name = sqlDataReader.GetString(1);
+                    g.Adress = sqlDataReader.GetString(2);
+                    g.City = sqlDataReader.GetString(3);
+                    g.Email = sqlDataReader.GetString(4);
+
+                    results.Add(g);
+                }
+            }
+            return results;
+        }
         public int InsertGallery(Gallery g)
         {
             using (SqlConnection sqlConnection = new SqlConnection(Constants.connectionString))
