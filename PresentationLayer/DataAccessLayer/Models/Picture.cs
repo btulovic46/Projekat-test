@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.Models
 {
     class Picture
-    {
+    {asdasadad
     }
 }
